@@ -52,45 +52,47 @@ export const DashboardPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-fade-in pb-16">
       {/* Hero Studio Banner */}
-      <div className="relative overflow-hidden card-panel p-6 sm:p-8 bg-gradient-to-br from-white via-indigo-50/30 to-sky-50/40 border border-indigo-100/80 shadow-sm rounded-3xl">
+      <div className="relative overflow-hidden card-panel p-6 sm:p-7 bg-gradient-to-br from-white via-indigo-50/30 to-sky-50/40 border border-indigo-100/80 shadow-sm rounded-3xl">
         {/* Subtle Background Glow Orbs */}
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-gradient-to-br from-indigo-400/10 to-sky-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/3 -mb-12 w-64 h-64 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-2xl">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-[1.2]">
-            Turn exam papers into <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-500 bg-clip-text text-transparent">structured questions.</span>
-          </h2>
-        </div>
-
-        {/* Interactive Visual Pipeline Box */}
-        <div className="hidden xl:flex absolute right-12 top-1/2 -translate-y-1/2 items-center gap-4 bg-white/95 backdrop-blur-md p-6 rounded-2xl border border-indigo-100 shadow-xl">
-          <div className="flex flex-col items-center p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 w-24 text-center">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-2 shadow-2xs">
-              <FileText className="w-5 h-5" />
-            </div>
-            <span className="text-[11px] font-bold text-slate-800">PDF / Image</span>
-            <span className="text-[9px] text-slate-400 mt-0.5 font-mono">Multi-Page</span>
+        <div className="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+          <div className="max-w-xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-[1.2]">
+              Turn exam papers into <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-500 bg-clip-text text-transparent">structured questions.</span>
+            </h2>
           </div>
 
-          <div className="w-5 h-0.5 bg-gradient-to-r from-indigo-300 to-indigo-500" />
-
-          <div className="flex flex-col items-center p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 w-24 text-center shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center mb-2 shadow-sm animate-pulse">
-              <Cpu className="w-5 h-5" />
+          {/* Interactive Visual Pipeline Box */}
+          <div className="hidden xl:flex items-center gap-3.5 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-indigo-100/80 shadow-md shrink-0">
+            <div className="flex flex-col items-center p-3 rounded-xl bg-slate-50 border border-slate-200/80 w-22 text-center">
+              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center mb-1.5 shadow-2xs">
+                <FileText className="w-4 h-4" />
+              </div>
+              <span className="text-[11px] font-bold text-slate-800">PDF / Image</span>
+              <span className="text-[9px] text-slate-400 font-mono">Multi-Page</span>
             </div>
-            <span className="text-[11px] font-bold text-indigo-900">OCR & AI</span>
-            <span className="text-[9px] text-indigo-600 mt-0.5 font-mono">Normalizer</span>
-          </div>
 
-          <div className="w-5 h-0.5 bg-gradient-to-r from-indigo-500 to-emerald-400" />
+            <div className="w-4 h-0.5 bg-gradient-to-r from-indigo-300 to-indigo-500" />
 
-          <div className="flex flex-col items-center p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 w-28 text-center shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-2 shadow-sm">
-              <Sparkles className="w-5 h-5" />
+            <div className="flex flex-col items-center p-3 rounded-xl bg-indigo-50/80 border border-indigo-200/80 w-22 text-center shadow-2xs">
+              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center mb-1.5 shadow-xs">
+                <Cpu className="w-4 h-4" />
+              </div>
+              <span className="text-[11px] font-bold text-indigo-900">OCR & AI</span>
+              <span className="text-[9px] text-indigo-600 font-mono">Normalizer</span>
             </div>
-            <span className="text-[11px] font-bold text-emerald-900">Questions (A-D)</span>
-            <span className="text-[9px] text-emerald-700 mt-0.5 font-mono">98% Confidence</span>
+
+            <div className="w-4 h-0.5 bg-gradient-to-r from-indigo-500 to-emerald-400" />
+
+            <div className="flex flex-col items-center p-3 rounded-xl bg-emerald-50/80 border border-emerald-200/80 w-26 text-center shadow-2xs">
+              <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center mb-1.5 shadow-xs">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <span className="text-[11px] font-bold text-emerald-900">Questions (A-D)</span>
+              <span className="text-[9px] text-emerald-700 font-mono">98% Match</span>
+            </div>
           </div>
         </div>
       </div>
