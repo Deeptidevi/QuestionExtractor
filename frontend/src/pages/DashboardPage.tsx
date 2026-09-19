@@ -243,7 +243,7 @@ export const DashboardPage: React.FC = () => {
                         </td>
                         <td className="py-4 px-5">
                           <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-mono font-bold uppercase">
-                            {doc.content_type.includes('pdf') ? 'PDF' : 'IMAGE'}
+                            {doc.content_type?.includes('pdf') || doc.original_filename?.toLowerCase().endsWith('.pdf') ? 'PDF' : 'IMAGE'}
                           </span>
                         </td>
                         <td className="py-4 px-5">

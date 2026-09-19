@@ -194,7 +194,7 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
           <div className="flex items-start justify-between gap-4 pb-5 border-b border-slate-100">
             <div className="flex items-center gap-3.5 min-w-0">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white flex items-center justify-center shrink-0 shadow-sm ring-4 ring-indigo-50">
-                {selectedFile.type.includes('pdf') ? (
+                {selectedFile.type?.includes('pdf') || selectedFile.name?.toLowerCase().endsWith('.pdf') ? (
                   <FileText className="w-6 h-6" />
                 ) : (
                   <ImageIcon className="w-6 h-6" />

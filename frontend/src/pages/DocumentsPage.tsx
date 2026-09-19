@@ -197,7 +197,7 @@ export const DocumentsPage: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4">
                         <span className="px-2 py-0.5 rounded bg-surface-100 text-surface-700 border border-surface-200 text-[10px] font-mono uppercase">
-                          {doc.content_type.includes('pdf') ? 'PDF' : 'IMAGE'}
+                          {doc.content_type?.includes('pdf') || doc.original_filename?.toLowerCase().endsWith('.pdf') ? 'PDF' : 'IMAGE'}
                         </span>
                       </td>
                       <td className="py-3.5 px-4">

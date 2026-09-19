@@ -57,7 +57,7 @@ export const QuestionsPage: React.FC = () => {
 
   const questions = (questionsData?.items || []).filter((q) => {
     if (!searchQuery.trim()) return true;
-    return q.question_text.toLowerCase().includes(searchQuery.toLowerCase());
+    return q.question_text?.toLowerCase().includes(searchQuery.toLowerCase()) || false;
   });
 
   const toggleAnswerReveal = (qId: string) => {
