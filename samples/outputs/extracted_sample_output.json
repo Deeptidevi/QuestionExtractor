@@ -1,0 +1,121 @@
+{
+  "document": {
+    "id": "e89c6d3f-561b-4f91-888e-c98f9801b702",
+    "title": "Computer Science Midterm Examination",
+    "original_filename": "computer_science_midterm_exam.pdf",
+    "mime_type": "application/pdf",
+    "file_size": 24580,
+    "total_pages": 2,
+    "is_scanned": false,
+    "status": "COMPLETED",
+    "overall_confidence": 0.94,
+    "created_at": "2026-09-19T21:00:00Z",
+    "updated_at": "2026-09-19T21:00:02Z"
+  },
+  "questions": [
+    {
+      "id": "7b0a8814-1e74-4b44-9dc5-d1420d20d75a",
+      "document_id": "e89c6d3f-561b-4f91-888e-c98f9801b702",
+      "question_number": "1",
+      "sequence_order": 1,
+      "question_text": "What is the time complexity of binary search on a sorted array of N elements?",
+      "raw_text": "1. What is the time complexity of binary search on a sorted array of N elements?\nA. O(1)\nB. O(log N)\nC. O(N)\nD. O(N^2)",
+      "question_type": "MCQ",
+      "options": [
+        {
+          "id": "42f56fba-1a73-455b-80df-9a1170d10d11",
+          "label": "A",
+          "option_text": "O(1)",
+          "position": 1,
+          "confidence": 1.0
+        },
+        {
+          "id": "93b48fce-7f39-4ab4-8395-885145aa3e22",
+          "label": "B",
+          "option_text": "O(log N)",
+          "position": 2,
+          "confidence": 1.0
+        },
+        {
+          "id": "6a9926cb-8d19-482a-a92c-5b6c507c8733",
+          "label": "C",
+          "option_text": "O(N)",
+          "position": 3,
+          "confidence": 1.0
+        },
+        {
+          "id": "f5831ea2-4a7b-4029-a1b7-a36746cf5944",
+          "label": "D",
+          "option_text": "O(N^2)",
+          "position": 4,
+          "confidence": 1.0
+        }
+      ],
+      "assets": [],
+      "answer": {
+        "id": "893c5d6e-9821-4821-b0e1-aa5610bcde81",
+        "answer_value": "B",
+        "raw_answer_text": "1 - B",
+        "confidence": 0.95,
+        "source_page": 2,
+        "match_status": "EXACT_MATCH"
+      },
+      "source_pages": [1],
+      "source_regions": [],
+      "extraction_confidence": 0.97,
+      "extraction_status": "SUCCESS",
+      "review_required": false,
+      "created_at": "2026-09-19T21:00:02Z",
+      "updated_at": "2026-09-19T21:00:02Z"
+    },
+    {
+      "id": "5f643e11-9a72-4d0f-a188-75b28d712165",
+      "document_id": "e89c6d3f-561b-4f91-888e-c98f9801b702",
+      "question_number": "2",
+      "sequence_order": 2,
+      "question_text": "Consider a distributed consensus network operating under the Raft consensus protocol. When a network partition splits 5 nodes into a cluster of 3 and a cluster of 2, explain how the leader election proceeds.",
+      "raw_text": "2. Consider a distributed consensus network operating under the Raft consensus protocol...\nA. The minority cluster of 2 elects a leader...\nB. The majority cluster of 3 maintains quorum...",
+      "question_type": "MCQ",
+      "options": [
+        {
+          "id": "aa11bb22-3344-5566-7788-99aabbccddee",
+          "label": "A",
+          "option_text": "The minority cluster of 2 elects a leader and continues writing.",
+          "position": 1,
+          "confidence": 0.95
+        },
+        {
+          "id": "bb22cc33-4455-6677-8899-aabbccddeeff",
+          "label": "B",
+          "option_text": "The majority cluster of 3 maintains quorum and commits transactions.",
+          "position": 2,
+          "confidence": 0.95
+        }
+      ],
+      "assets": [],
+      "answer": {
+        "id": "77aa88bb-99cc-00dd-11ee-22ff33aa44bb",
+        "answer_value": "B",
+        "raw_answer_text": "2 - B",
+        "confidence": 0.95,
+        "source_page": 2,
+        "match_status": "EXACT_MATCH"
+      },
+      "source_pages": [1, 2],
+      "source_regions": [],
+      "extraction_confidence": 0.92,
+      "extraction_status": "SUCCESS",
+      "review_required": false,
+      "created_at": "2026-09-19T21:00:02Z",
+      "updated_at": "2026-09-19T21:00:02Z"
+    }
+  ],
+  "review_summary": {
+    "total_review_items": 0,
+    "unresolved_items": 0,
+    "critical_count": 0,
+    "warning_count": 0,
+    "info_count": 0,
+    "items": []
+  }
+}
