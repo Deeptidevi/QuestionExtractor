@@ -6,17 +6,9 @@ import {
   Loader2,
   CheckCircle2,
   AlertTriangle,
-  UploadCloud,
   Sparkles,
-  ArrowRight,
-  Clock,
-  Layers,
   Cpu,
   KeyRound,
-  FileSearch,
-  MoreVertical,
-  Zap,
-  BookOpen,
   Check,
 } from 'lucide-react';
 import { documentsApi } from '../api/documents';
@@ -60,40 +52,15 @@ export const DashboardPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-fade-in pb-16">
       {/* Hero Studio Banner */}
-      <div className="relative overflow-hidden card-panel p-8 sm:p-12 bg-gradient-to-br from-white via-indigo-50/30 to-sky-50/40 border border-indigo-100/80 shadow-md rounded-3xl">
+      <div className="relative overflow-hidden card-panel p-6 sm:p-8 bg-gradient-to-br from-white via-indigo-50/30 to-sky-50/40 border border-indigo-100/80 shadow-sm rounded-3xl">
         {/* Subtle Background Glow Orbs */}
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-gradient-to-br from-indigo-400/10 to-sky-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/3 -mb-12 w-64 h-64 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-50 to-indigo-100/60 text-indigo-700 text-xs font-bold mb-5 border border-indigo-200/80 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-            <span>AI Document Intelligence & Question Extraction</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-[1.2]">
             Turn exam papers into <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-500 bg-clip-text text-transparent">structured questions.</span>
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed font-medium">
-            Upload PDFs or images of examination papers. DocuQuest automatically segments questions, parses choices (A–D), matches answer keys, and scores confidence.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3.5 mt-8">
-            <button
-              onClick={() => setIsUploadModalOpen(true)}
-              className="btn-primary py-3 px-6 text-sm font-bold shadow-md shadow-indigo-500/25"
-            >
-              <UploadCloud className="w-4.5 h-4.5" />
-              + Upload Question Paper
-            </button>
-            <button
-              onClick={() => navigate('/documents')}
-              className="btn-secondary py-3 px-5 text-sm font-bold"
-            >
-              Explore Documents
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
         </div>
 
         {/* Interactive Visual Pipeline Box */}
