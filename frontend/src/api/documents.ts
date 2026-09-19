@@ -47,11 +47,7 @@ export const documentsApi = {
       formData.append('sync_process', String(params.sync_process));
     }
 
-    const response = await apiClient.post<DocumentUploadResponse>('/documents', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await apiClient.post<DocumentUploadResponse>('/documents', formData);
     return response.data;
   },
 

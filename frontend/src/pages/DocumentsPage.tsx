@@ -189,9 +189,9 @@ export const DocumentsPage: React.FC = () => {
                             <p className="font-semibold text-surface-900 truncate max-w-[260px]">
                               {doc.title || doc.original_filename}
                             </p>
-                            <p className="text-[11px] text-surface-400 truncate">
-                              {doc.original_filename} &bull; {(doc.file_size_bytes / 1024).toFixed(1)} KB
-                            </p>
+                              <p className="text-[11px] text-surface-400 truncate">
+                                {doc.original_filename} &bull; {(Number(doc.file_size_bytes || doc.file_size || 0) / 1024).toFixed(1)} KB
+                              </p>
                           </div>
                         </div>
                       </td>

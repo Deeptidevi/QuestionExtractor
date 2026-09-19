@@ -1,14 +1,18 @@
 // Common API pagination & response types
 export interface PaginationMeta {
-  total: number;
+  total?: number;
+  total_items?: number;
   page: number;
   page_size: number;
   total_pages: number;
+  has_next?: boolean;
+  has_prev?: boolean;
 }
 
 export interface PaginatedResponse<T> {
   items: T[];
-  meta: PaginationMeta;
+  pagination?: PaginationMeta;
+  meta?: PaginationMeta;
 }
 
 export interface ApiError {
@@ -30,7 +34,7 @@ export interface User {
   email: string;
   full_name: string;
   is_active: boolean;
-  is_superuser: boolean;
+  is_superuser?: boolean;
   created_at: string;
 }
 
@@ -42,21 +46,34 @@ export interface TokenResponse {
 }
 
 // Document Types
-export type DocumentStatus = 'QUEUED' | 'PROCESSING' | 'COMPLETED' | 'FAILED' | 'NEEDS_REVIEW' | 'PARTIAL';
+export type DocumentStatus =
+  | 'UPLOADED'
+  | 'QUEUED'
+  | 'PROCESSING'
+  | 'COMPLETED'
+  | 'COMPLETED_WITH_WARNINGS'
+  | 'FAILED'
+  | 'NEEDS_REVIEW'
+  | 'PARTIAL';
 
 export interface Document {
   id: string;
   title: string;
   original_filename: string;
-  content_type: string;
-  file_size_bytes: number;
+  mime_type?: string;
+  content_type?: string;
+  file_size?: number;
+  file_size_bytes?: number;
   file_hash?: string;
   total_pages: number;
+  is_scanned?: boolean;
   status: DocumentStatus;
+  overall_confidence?: number | null;
   processing_error?: string;
   created_at: string;
   updated_at: string;
   total_questions?: number;
+  pages?: DocumentPage[];
 }
 
 export interface DocumentUploadResponse {
@@ -170,23 +187,38 @@ export interface DocumentAnswersResponse {
 }
 
 // Review Types
-export type IssueType = 'LOW_OCR_CONFIDENCE' | 'MISSING_QUESTION_NUMBER' | 'OPTIONS_UNCERTAIN' | 'ANSWER_MATCH_UNCERTAIN' | 'UNRESOLVED_ASSET' | 'LAYOUT_BREAK' | 'OTHER';
-export type ReviewSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
-export type ReviewStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'EDITED';
+export type ReviewSeverity = 'INFO' | 'WARNING' | 'CRITICAL' | 'LOW' | 'MEDIUM' | 'HIGH';
+export type ReviewStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'EDITED' | 'RESOLVED' | 'UNRESOLVED';
 
 export interface ReviewItem {
   id: string;
   document_id: string;
-  question_id?: string;
-  issue_type: IssueType;
+  question_id?: string | null;
+  warning_type?: string;
+  issue_type?: string;
   severity: ReviewSeverity;
-  status: ReviewStatus;
-  issue_description: string;
+  status?: ReviewStatus;
+  is_resolved?: boolean;
+  message?: string;
+  issue_description?: string;
+  source_page?: number | null;
+  confidence?: number | null;
+  details?: Record<string, any>;
   resolution_notes?: string;
   created_at: string;
   resolved_at?: string;
   question?: Question;
   document_title?: string;
+}
+
+export interface DocumentReviewSummaryResponse {
+  document_id: string;
+  total_review_items: number;
+  unresolved_items: number;
+  critical_count: number;
+  warning_count: number;
+  info_count: number;
+  items: ReviewItem[];
 }
 
 // Relationship Types

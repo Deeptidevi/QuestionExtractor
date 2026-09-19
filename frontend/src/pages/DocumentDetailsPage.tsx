@@ -39,7 +39,7 @@ export const DocumentDetailsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'questions' | 'answers' | 'pages'>('questions');
   const [selectedQuestion, setSelectedQuestion] = useState<any | null>(null);
 
-  // 1. Fetch Document Info
+  // 1. Fetch Document Info with polling
   const {
     data: document,
     isLoading: isDocLoading,
@@ -50,9 +50,18 @@ export const DocumentDetailsPage: React.FC = () => {
     enabled: !!id,
     refetchInterval: (query) => {
       const status = query.state.data?.status;
-      return status === 'PROCESSING' || status === 'QUEUED' ? 3000 : false;
+      return status === 'PROCESSING' || status === 'QUEUED' || status === 'UPLOADED' ? 2500 : false;
     },
   });
+
+  // Automatically refresh questions, answers & pages when document status completes
+  React.useEffect(() => {
+    if (document?.status === 'COMPLETED' || document?.status === 'COMPLETED_WITH_WARNINGS' || document?.status === 'NEEDS_REVIEW') {
+      queryClient.invalidateQueries({ queryKey: ['documentQuestions', id] });
+      queryClient.invalidateQueries({ queryKey: ['documentAnswers', id] });
+      queryClient.invalidateQueries({ queryKey: ['documentPages', id] });
+    }
+  }, [document?.status, id, queryClient]);
 
   // 2. Fetch Document Questions
   const { data: questionsData, isLoading: isQuestionsLoading } = useQuery({
@@ -152,7 +161,7 @@ export const DocumentDetailsPage: React.FC = () => {
           </div>
           <p className="text-xs text-surface-400 mt-1">
             Filename: <span className="font-mono text-surface-600">{document.original_filename}</span> &bull;{' '}
-            {(document.file_size_bytes / 1024).toFixed(1)} KB &bull; {document.total_pages || 1} Pages
+            {(Number(document.file_size_bytes || document.file_size || 0) / 1024).toFixed(1)} KB &bull; {document.total_pages || 1} Pages
           </p>
         </div>
 

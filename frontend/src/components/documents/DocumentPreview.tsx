@@ -135,7 +135,7 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
 
               <div className="p-3 bg-surface-50 border border-surface-200 rounded-lg text-[11px] text-surface-500">
                 <p className="font-medium text-surface-700">Document Source Information:</p>
-                <p className="mt-0.5">MIME Type: {document.content_type} &bull; File Size: {(document.file_size_bytes / 1024).toFixed(1)} KB</p>
+                <p className="mt-0.5">MIME Type: {document.content_type || document.mime_type || 'Document'} &bull; File Size: {(Number(document.file_size_bytes || document.file_size || 0) / 1024).toFixed(1)} KB</p>
                 <p className="mt-0.5">Extraction Status: {document.status}</p>
               </div>
 
