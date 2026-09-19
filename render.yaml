@@ -67,18 +67,17 @@ services:
       - key: EXTRACTION_ENGINE
         value: rule_based
 
-# 3. PostgreSQL Database
+  # 3. Redis Datastore / Queue
+  - type: redis
+    name: doc-extract-redis
+    region: oregon
+    plan: free
+    ipAllowList: []
+
+# 4. PostgreSQL Database
 databases:
   - name: doc-extract-db
     region: oregon
     plan: free
     databaseName: doc_processing_db
     user: doc_user
-
-# 4. Redis Key-Value Datastore
-  - type: redis
-    name: doc-extract-redis
-    region: oregon
-    plan: free
-    maxmemoryPolicy: allkeys-lru
-    ipAllowList: []
