@@ -124,7 +124,18 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
       }
     } catch (err: any) {
       console.error('Upload failed:', err);
-      const msg = err.response?.data?.error?.message || 'Failed to upload document. Please try again.';
+      let msg = 'Failed to upload document. Please try again.';
+      if (typeof err.response?.data?.detail === 'string') {
+        msg = err.response.data.detail;
+      } else if (Array.isArray(err.response?.data?.detail)) {
+        msg = err.response.data.detail.map((e: any) => e.msg || e.message).join(', ');
+      } else if (err.response?.data?.error?.message) {
+        msg = err.response.data.error.message;
+      } else if (err.userFriendlyMessage) {
+        msg = err.userFriendlyMessage;
+      } else if (err.message) {
+        msg = err.message;
+      }
       error('Upload Failed', msg);
     } finally {
       setIsUploading(false);

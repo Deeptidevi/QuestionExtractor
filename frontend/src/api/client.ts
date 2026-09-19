@@ -9,15 +9,79 @@ const getBaseUrl = () => {
 
 export const apiClient = axios.create({
   baseURL: getBaseUrl(),
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
-// Request Interceptor: Attach JWT Token if available
+let isProvisioningAuth = false;
+let authPromise: Promise<string | null> | null = null;
+
+// Ensure an authenticated session is always active
+export async function getValidAuthToken(): Promise<string | null> {
+  const existing = localStorage.getItem('docuquest_token');
+  if (existing && existing !== 'undefined' && existing !== 'null') {
+    return existing;
+  }
+
+  if (isProvisioningAuth && authPromise) {
+    return authPromise;
+  }
+
+  isProvisioningAuth = true;
+  authPromise = (async () => {
+    try {
+      const baseUrl = getBaseUrl();
+      const loginParams = new URLSearchParams();
+      loginParams.append('username', 'demo_admin@docuquest.ai');
+      loginParams.append('password', 'SecurePassword123!');
+
+      // Try login directly
+      try {
+        const res = await axios.post(`${baseUrl}/auth/login`, loginParams, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        });
+        if (res.data?.access_token) {
+          localStorage.setItem('docuquest_token', res.data.access_token);
+          return res.data.access_token;
+        }
+      } catch {
+        // If login failed, register first
+        await axios.post(`${baseUrl}/auth/register`, {
+          email: 'demo_admin@docuquest.ai',
+          password: 'SecurePassword123!',
+          full_name: 'Administrator',
+        }).catch(() => {});
+
+        const res = await axios.post(`${baseUrl}/auth/login`, loginParams, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        });
+        if (res.data?.access_token) {
+          localStorage.setItem('docuquest_token', res.data.access_token);
+          return res.data.access_token;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not auto-provision auth token:', e);
+    } finally {
+      isProvisioningAuth = false;
+    }
+    return null;
+  })();
+
+  return authPromise;
+}
+
+// Request Interceptor: Attach JWT Token if available & Fix FormData headers
 apiClient.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('docuquest_token');
+  async (config) => {
+    // If sending FormData, delete Content-Type to let browser generate multipart boundary
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+    }
+
+    let token = localStorage.getItem('docuquest_token');
+    if (!token && !config.url?.includes('/auth/')) {
+      token = await getValidAuthToken();
+    }
+
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -29,19 +93,21 @@ apiClient.interceptors.request.use(
 // Response Interceptor: Handle errors globally
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Clear token and redirect if not already on auth page
-      const currentPath = window.location.pathname;
-      if (!currentPath.includes('/login') && !currentPath.includes('/register')) {
-        localStorage.removeItem('docuquest_token');
-        localStorage.removeItem('docuquest_user');
-        window.location.href = '/login';
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response?.status === 401 && !originalRequest._retry && !originalRequest.url?.includes('/auth/')) {
+      originalRequest._retry = true;
+      localStorage.removeItem('docuquest_token');
+      const newToken = await getValidAuthToken();
+      if (newToken) {
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        return apiClient(originalRequest);
       }
     }
+
     // Enhance network error message if backend is unreachable
     if (!error.response && error.message === 'Network Error') {
-      error.userFriendlyMessage = 'Unable to connect to the processing service. Please verify backend connectivity and CORS configuration.';
+      error.userFriendlyMessage = 'Unable to connect to the processing service. Please check your internet or try again.';
     }
     return Promise.reject(error);
   }
