@@ -90,7 +90,9 @@ class Settings(BaseSettings):
     @classmethod
     def assemble_database_url(cls, v: str) -> str:
         if v and v.startswith("postgres://"):
-            return v.replace("postgres://", "postgresql://", 1)
+            return v.replace("postgres://", "postgresql+psycopg2://", 1)
+        elif v and v.startswith("postgresql://") and not v.startswith("postgresql+"):
+            return v.replace("postgresql://", "postgresql+psycopg2://", 1)
         return v
 
     @field_validator("CELERY_BROKER_URL", mode="before")
